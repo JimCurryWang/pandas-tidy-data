@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import csv
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -18,6 +19,7 @@ df = pd.read_csv('data/pew.csv')
 df = pd.melt(df, id_vars=['religion'], value_vars=list(df.columns)[1:],
              var_name='income', value_name='frequency')
 df = df.sort_values(by='religion')
+df.to_csv('data/pew-tidy.csv', index=False)
 df.head(10)
 
 # %%
@@ -47,6 +49,7 @@ df['age'] = df['column'].str[1:].map({
     '65': '65+'
 })
 df = df[['country', 'year', 'sex', 'age', 'cases']]
+df.to_csv('data/tb-tidy.csv', index=False)
 df
 
 # %%
@@ -63,6 +66,7 @@ df = df.set_index(['id', 'date', 'element'])
 df = df.unstack()
 df.columns = list(df.columns.get_level_values('element'))
 df = df.reset_index()
+df.to_csv('data/weather-tidy.csv', index=False)
 df
 
 # %%
@@ -71,4 +75,6 @@ df_track = df[['artist', 'track', 'time']].drop_duplicates()
 df_track.insert(0, 'id', range(1, len(df_track) + 1))
 df = pd.merge(df, df_track, on=['artist', 'track', 'time'])
 df = df[['id', 'date', 'rank']]
+df_track.to_csv('data/billboard-track.csv', index=False)
+df.to_csv('data/billboard-rank.csv', index=False)
 print(df_track, '\n\n', df)
