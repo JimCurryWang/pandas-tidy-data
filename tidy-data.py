@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 
-import csv
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -10,7 +9,7 @@ df = pd.read_csv('data/pew.csv')
 df = df.set_index('religion')
 df = df.stack()
 df.index = df.index.rename('income', level=1)
-df.name = 'frequence'
+df.name = 'frequency'
 df = df.reset_index()
 df.head(10)
 
